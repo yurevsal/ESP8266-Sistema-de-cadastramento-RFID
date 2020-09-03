@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pagina de cadastro</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="logo.jpg">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+    <div id="logo-div">
+        <img src="logo.jpg" alt="logo">
+    </div>
+    <div id="container">
+        <div id="form-div">
+            <h1>Novo usuário</h1>
+            <form action="/get">
+                <label>Aproxime sua tag do leitor</label><br>
+                <input class="inputs" type="text" name="rfid" id="rfid-tag" value=%RFID_TAG%><br>
+                <label>Informação adicional</label><br>
+                <input class="inputs" type="text" name="info" required="required" placeholder="Ex: Nome, CPF"><br>
+                <input type="submit" class="button" value="Cadastrar">
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h1>Usuários cadastrados</h1>
+            %TABLE%
+        </div>
+    </div>
+</body>
+<script>
+    setInterval(function () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //document.getElementById("rfid-tag").innerHTML = this.responseText;
+                document.getElementById("rfid-tag").value = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/rfid", true);
+        xhttp.send();
+    }, 1000);
+</script>
+
+</html>
